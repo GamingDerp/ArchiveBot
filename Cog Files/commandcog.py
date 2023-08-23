@@ -131,7 +131,7 @@ class CommandCog(commands.Cog):
             e.set_thumbnail(url="https://media.discordapp.net/attachments/807071768258805764/1143728544971763742/sdalogo.jpg")
             e.add_field(
                 name="✧ __Index__",
-                value=f"> **Servers** {index_server_count}",
+                value=f"> **Servers:** {index_server_count}",
                 inline=False
             )
             e.add_field(
