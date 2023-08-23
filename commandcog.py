@@ -137,11 +137,11 @@ class CommandCog(commands.Cog):
             e.add_field(
                 name="✧ __Statistics__",
                 value=f"> **Commands:** [17]"
-	                  f"\n> **Code:** {total_lines} Lines"
+	              f"\n> **Code:** {total_lines} Lines"
                       f"\n> **Ping:** {round(self.bot.latency * 1000)}ms"
                       f"\n> **Users:** {len(self.bot.users)}"
                       f"\n> **Servers:** {len(self.bot.guilds)}"
-        	          f"\n> **Uptime:** {days}**d** {hours}**h** {minutes}**m** {seconds}**s**",
+                      f"\n> **Uptime:** {days}**d** {hours}**h** {minutes}**m** {seconds}**s**",
                 inline=False
             )
             e.add_field(
