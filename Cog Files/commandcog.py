@@ -151,7 +151,7 @@ class CommandCog(commands.Cog):
             )
             e.add_field(
                 name="✧ __Links__",
-                value=f"<:GitHub:1123773190238392504> [Repo Link](https://github.com/GamingDerp/SleeplessNightsBot)"
+                value=f"<:GitHub:1123773190238392504> [Repo Link](https://github.com/GamingDerp/ArchiveBot)"
                       f"\n:link: [Add ArchiveBot!](https://discord.com/api/oauth2/authorize?client_id=1143360299534143640&permissions=414464735297&scope=bot)",
                 inline=False
             )
