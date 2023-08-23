@@ -7,7 +7,7 @@ import time
 import asyncio
 
 # Stores when the bot was started
-bot = commands.Bot(command_prefix="!", intents=discord.Intents.default())
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 bot.launch_time = datetime.utcnow()
 
 # Server Commands Embed
