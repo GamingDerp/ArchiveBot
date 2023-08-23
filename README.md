@@ -14,7 +14,7 @@
 - 📌 **General:** `Help`, `Info`, `Test`, `Ping`, `Poll`
 - 🎉 **Fun:** `Coinflip`, `Ask`, `Reverse`, `Say`, `Lovetest`
 - 🧮 **Misc:** `Whois`, `Snipe`, `Remind`, `ESteal`
-- **Command List:** [Here](https://github.com/GamingDerp/ArchiveBot/blob/main/Commands.md)
+- **Command List:** [Here](https://github.com/GamingDerp/ArchiveBot/blob/main/COMMANDS.md)
 
 # 📑 Credit
 - `gamingderp` - Developer
