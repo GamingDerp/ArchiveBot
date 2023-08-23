@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 import time
 
 # Bot Intents & Defining Bot
-bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.default())
 bot.remove_command('help')    
 bot.config = {
     "server_id": 840052141258309672,
