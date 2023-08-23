@@ -114,7 +114,7 @@ class CommandCog(commands.Cog):
                 index_server_count = sum(sum(len(links) for links in section.values()) for section in index_cog.index.values())
             else:
                 index_server_count = 0
-            total_lines = 29
+            total_lines = 30
             cog_directory = "./cogs"
             for filename in os.listdir(cog_directory):
                 if filename.endswith(".py"):
