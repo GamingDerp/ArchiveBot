@@ -16,9 +16,10 @@ class IndexCog(commands.Cog):
         self.Categories = [840074899447480360, 840052147936165911, 849423703091445840, 1112916591043153980, 969999473189199932]
         self.server_id = self.bot.config["server_id"]
         self.index = {}
-    
+        
     @commands.Cog.listener()
     async def on_ready(self):
+        await self.bot.tree.sync()
         while True:
             try:
                 await self.index_servers()
@@ -140,7 +141,7 @@ class IndexCog(commands.Cog):
         page = 0
  
     # Search Command
-    @commands.command()
+    @commands.hybrid_command(name="search", description="Search for a server")
     async def search(self, ctx, *, search_term):
         try:
             search_term = search_term.lower()
@@ -188,7 +189,7 @@ class IndexCog(commands.Cog):
             print(e)
     
     # Random Command
-    @commands.command()
+    @commands.hybrid_command(name="random", description="Sends a random discord link")
     async def random(self, ctx):
         try:
             e = discord.Embed(color=0x0E0E0E)
@@ -200,10 +201,10 @@ class IndexCog(commands.Cog):
                         selection.append([server, link])
             choice = random.choice(selection)
             e.description = f"<:Discord:1143769008420692009> **[{choice[0]}]({choice[1]})**"
-            await ctx.send(embed=e)
+            await ctx.send(embed=e, ephemeral=True)
         except Exception as e:
             print(e)
     
 
 async def setup(bot):
-    await bot.add_cog(IndexCog(bot)) 
+    await bot.add_cog(IndexCog(bot))
