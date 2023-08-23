@@ -28,5 +28,6 @@ async def main():
 async def on_ready():
     await bot.change_presence(activity=discord.Game(name="Connecting Stoneworks.."))
     await print(f"Logged in as {bot.user} \nID: {bot.user.id}")
+    await bot.tree.sync()
 
 asyncio.run(main())
