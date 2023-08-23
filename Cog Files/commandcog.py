@@ -7,7 +7,7 @@ import time
 import asyncio
 
 # Stores when the bot was started
-bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.default())
 bot.launch_time = datetime.utcnow()
 
 # Server Commands Embed
@@ -84,13 +84,17 @@ class CommandCog(commands.Cog):
         if str(bot_id) in message.content:
             await message.channel.send("I've been summoned! If you need me do `!help` <:CatWave:1123898399557693470>")
     
+    @commands.Cog.listener()
+    async def on_ready(self):
+            await self.bot.tree.sync()
+    
     # Test command
-    @commands.command()
+    @commands.hybrid_command(name="test", description="Sends a message if the bot is online")
     async def test(self, ctx):
-        await ctx.send("I'm up and indexing! <a:DerpPet:1143780090979831928>")
+        await ctx.send("I'm up and indexing! <a:DerpPet:1143780090979831928>", ephemeral=True)
     
     # Help Command
-    @commands.command()
+    @commands.hybrid_command(name="help", description="Sends ArchiveBot's help menu")
     async def help(self, ctx):
         e = discord.Embed(color=0x0E0E0E)
         e.set_author(name="Bot Commands", icon_url="https://media.discordapp.net/attachments/807071768258805764/1143728544971763742/sdalogo.jpg")
@@ -103,10 +107,10 @@ class CommandCog(commands.Cog):
                   f"\n> 🧮 Misc"
         )
         view = DropdownView()
-        await ctx.send(embed=e, view=view)
+        await ctx.send(embed=e, view=view, ephemeral=True)
     
     # Info Command
-    @commands.command()
+    @commands.hybrid_command(name="info", description="Sends information about ArchiveBot")
     async def info(self, ctx):
         try:
             index_cog = self.bot.get_cog('IndexCog')
@@ -137,11 +141,11 @@ class CommandCog(commands.Cog):
             e.add_field(
                 name="✧ __Statistics__",
                 value=f"> **Commands:** [17]"
-	              f"\n> **Code:** {total_lines} Lines"
+	                  f"\n> **Code:** {total_lines} Lines"
                       f"\n> **Ping:** {round(self.bot.latency * 1000)}ms"
                       f"\n> **Users:** {len(self.bot.users)}"
                       f"\n> **Servers:** {len(self.bot.guilds)}"
-        	      f"\n> **Uptime:** {days}**d** {hours}**h** {minutes}**m** {seconds}**s**",
+        	          f"\n> **Uptime:** {days}**d** {hours}**h** {minutes}**m** {seconds}**s**",
                 inline=False
             )
             e.add_field(
@@ -157,35 +161,35 @@ class CommandCog(commands.Cog):
             )
             e.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
             e.timestamp = datetime.utcnow()
-            await ctx.send(embed=e)
+            await ctx.send(embed=e, ephemeral=True)
         except Exception as e:
             print(e)
                                  
     # Coinflip Command
-    @commands.command()
+    @commands.hybrid_command(name="coinflip", description="Sends heads or tails", aliases=["cf"])
     async def coinflip(self, ctx):
         choice = ["Heads", "Tails"]
         await ctx.send(f"{random.choice(choice)}!")
 
     # Ask Command
-    @commands.command()
+    @commands.command(name="ask", description="Ask ArchiveBot a question")
     async def ask(self, ctx):
         choice = ["Yes", "No", "Obviously", "Wtf??", "I'm not sure..", "Maybe...?", "Stop asking.", "Find out for yourself, smh", "Crabs", "Ask Derp :eyes:"]
         await ctx.send(f"{random.choice(choice)}")
 
     # Reverse Command
-    @commands.command()
+    @commands.hybrid_command(name="reverse", description="Sends your message backwards")
     async def reverse(self, ctx, *, arg="reverse"):
         await ctx.send(arg[::-1])
 
     # Say Command
-    @commands.command()
+    @commands.hybrid_command(name="say", description="Sends your message")
     async def say(self, ctx, *, arg):
         await ctx.send(arg)
         await ctx.message.delete()
     
     # Ping Command
-    @commands.command()
+    @commands.hybrid_command(name="ping", description="Sends your ping")
     async def ping(self, ctx):
         e = discord.Embed(color=0x0E0E0E)
         e.add_field(
@@ -196,7 +200,7 @@ class CommandCog(commands.Cog):
         await ctx.send(embed=e)
     
     # Love Test Command
-    @commands.command()
+    @commands.hybrid_command(name="lovetest", description="Compares the love rate of two users")
     async def lovetest(self, ctx, user1:discord.Member, user2:discord.Member):
     
         love_rate = str(random.randrange(0, 100))
@@ -221,7 +225,7 @@ class CommandCog(commands.Cog):
             await ctx.send(embed=e)                             
                                  
     # WhoIs Command
-    @commands.command()
+    @commands.hybrid_command(name="whois", description="Sends information about a users account")
     async def whois(self, ctx, user:discord.Member):
         e = discord.Embed(color=0x0E0E0E)
         e.set_author(name=f"Gathering Information..."),
@@ -276,7 +280,7 @@ class CommandCog(commands.Cog):
             e.add_field(name="📰 Banner", value="None")
         e.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url),
         e.timestamp = datetime.utcnow()
-        await ctx.send(embed=e)
+        await ctx.send(embed=e, ephemeral=True)
                                   
     # Snipe Events
     sniped_message = None
@@ -296,7 +300,7 @@ class CommandCog(commands.Cog):
         sniped_message = before
         
     # Snipe Command
-    @commands.command()
+    @commands.hybrid_command(name="snipe", description="Retrieves a deleted or edited message")
     async def snipe(self, ctx):
         global sniped_message
         if sniped_message is None:
@@ -316,7 +320,7 @@ class CommandCog(commands.Cog):
         sniped_message = None  # Reset sniped message after displaying                                 
                                  
     # Remind Command
-    @commands.command()
+    @commands.hybrid_command(name="remind", description="Makes a reminder for you")
     async def remind(self, ctx, time, *, task):
         try:
             def convert(time):
@@ -345,7 +349,7 @@ class CommandCog(commands.Cog):
             e.add_field(name="Task", value=task)
             e.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
             e.timestamp = datetime.utcnow()
-            await ctx.send(embed=e)
+            await ctx.send(embed=e, ephemeral=True)
         
             # End Timer Embed
             await asyncio.sleep(converted_time)
@@ -353,21 +357,21 @@ class CommandCog(commands.Cog):
             e = discord.Embed(color=0x0E0E0E)
             e.description = "⏰ Time's Up ⏰"
             e.add_field(name="Task", value=task)
-            await ctx.send(embed=e)
+            await ctx.send(embed=e, ephemeral=True)
         except Exception as e:
             print(e)
                                      
     # Emoji Steal Command
-    @commands.command()
+    @commands.hybrid_command(name="esteal", description="Sends the image file link for a custom emoji")
     async def esteal(self, ctx, emoji: discord.PartialEmoji):
         if emoji.id:
             emoji_url = emoji.url
-            await ctx.send(f":link: {emoji_url}")
+            await ctx.send(f":link: {emoji_url}", ephemeral=True)
         else:
-            await ctx.send("Please provide a custom emoji.")
+            await ctx.send("Please provide a custom emoji.", ephemeral=True)
     
     # Poll Command - Slash
-    @commands.hybrid_command(name="poll", description="Create a poll!")
+    @commands.hybrid_command(name="poll", description="Creates a poll")
     async def poll(self, ctx, question:str, option1:str=None, option2:str=None, option3:str=None, option4:str=None, option5:str=None):
         options = [option1, option2, option3, option4, option5]
         options = [option for option in options if option is not None]
@@ -389,7 +393,7 @@ class CommandCog(commands.Cog):
             await msg.add_reaction(emoji_list[i])
     
     # Servers Command
-    @commands.command()
+    @commands.hybrid_command(name="servers", description="Sends the servers the bot is in")
     async def servers(self, ctx):
         derp_id = 532706491438727169
         
