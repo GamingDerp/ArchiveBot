@@ -6,8 +6,8 @@ import traceback
 from typing import Optional
 import sys
 import random
-from discord.ext import commands, tasks
 import discord
+from discord.ext import commands, tasks
 
 class IndexCog(commands.Cog):
     def __init__(self, bot):
@@ -139,7 +139,7 @@ class IndexCog(commands.Cog):
             index += 1
         pages.append(tmp_page)
         page = 0
- 
+    
     # Search Command
     @commands.hybrid_command(name="search", description="Search for a server")
     async def search(self, ctx, *, search_term):
@@ -152,7 +152,7 @@ class IndexCog(commands.Cog):
                         if search_term in str(server).lower():
                             discords[server] = link
             if not discords:
-                await ctx.send("No matching servers found.")
+                await ctx.send("No matching servers found.", ephemeral=True)
                 return
 
             pages = [list(discords.keys())[i:i + 10] for i in range(0, len(discords), 10)]
@@ -205,6 +205,6 @@ class IndexCog(commands.Cog):
         except Exception as e:
             print(e)
     
-
+    
 async def setup(bot):
-    await bot.add_cog(IndexCog(bot))
+    await bot.add_cog(IndexCog(bot)) 
