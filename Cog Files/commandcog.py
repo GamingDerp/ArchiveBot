@@ -1,7 +1,9 @@
 import os
+import re
 import discord
-import random
 from discord.ext import commands
+from discord import app_commands
+import random
 from datetime import datetime, timedelta
 import time
 import asyncio
@@ -25,7 +27,7 @@ ge.set_author(name="Bot Commands", icon_url="https://media.discordapp.net/attach
 ge.set_thumbnail(url="https://media.discordapp.net/attachments/807071768258805764/1143728544971763742/sdalogo.jpg")
 ge.add_field(
     name="📌 __General Commands__",
-    value=f"> `Help`, `Info`, `Test`, `Ping`, `/Poll`",
+    value=f"> `Help`, `Info`, `Test`, `Ping`",
 )
 
 # Fun Commands Embed
@@ -34,7 +36,7 @@ fe.set_author(name="Bot Commands", icon_url="https://media.discordapp.net/attach
 fe.set_thumbnail(url="https://media.discordapp.net/attachments/807071768258805764/1143728544971763742/sdalogo.jpg")
 fe.add_field(
     name="🎉 __Fun Commands__",
-    value=f"> `Coinflip`, `Ask`, `Reverse`, `Say`, `Lovetest`",
+    value=f"> `Coinflip`, `Lovetest`",
 )
 
 # Misc Commands Embed
@@ -43,7 +45,7 @@ me.set_author(name="Bot Commands", icon_url="https://media.discordapp.net/attach
 me.set_thumbnail(url="https://media.discordapp.net/attachments/807071768258805764/1143728544971763742/sdalogo.jpg")
 me.add_field(
     name="🧮 __Misc Commands__",
-    value=f"> `Whois`, `Snipe`, `Remind`, `ESteal`",
+    value=f"> `Whois`, `ESteal`",
 )
 
 # Help Menu Dropdown
@@ -51,9 +53,9 @@ class Dropdown(discord.ui.Select):
     def __init__(self):
         options = [
             discord.SelectOption(label="Server Commands", description="Search, Random", emoji="🔍"),
-            discord.SelectOption(label="General Commands",description="Help, Info, Test, Ping, /Poll", emoji="📌"),
-            discord.SelectOption(label="Fun Commands", description="Coinflip, Ask, Reverse, Say, Lovetest", emoji="🎉"),
-            discord.SelectOption(label="Misc Commands", description="Whois, Snipe, Remind, ESteal", emoji="🧮"),
+            discord.SelectOption(label="General Commands",description="Help, Info, Test, Ping", emoji="📌"),
+            discord.SelectOption(label="Fun Commands", description="Coinflip, Lovetest", emoji="🎉"),
+            discord.SelectOption(label="Misc Commands", description="Whois, ESteal", emoji="🧮"),
         ]
         super().__init__(min_values=1, max_values=1, options=options)
 
@@ -71,7 +73,7 @@ class Dropdown(discord.ui.Select):
 class DropdownView(discord.ui.View):
     def __init__(self):
         super().__init__()
-        self.add_item(Dropdown())
+        self.add_item(Dropdown())      
         
 # Commands Class
 class CommandCog(commands.Cog):
@@ -89,13 +91,13 @@ class CommandCog(commands.Cog):
             await self.bot.tree.sync()
     
     # Test command
-    @commands.hybrid_command(name="test", description="Sends a message if the bot is online")
-    async def test(self, ctx):
-        await ctx.send("I'm up and indexing! <a:DerpPet:1143780090979831928>", ephemeral=True)
+    @bot.tree.command(description="Sends a message if the bot is online")
+    async def test(self, interaction: discord.Interaction):
+            await interaction.response.send_message("I'm up and indexing! <a:DerpPet:1143780090979831928>", ephemeral=True)
     
     # Help Command
-    @commands.hybrid_command(name="help", description="Sends ArchiveBot's help menu")
-    async def help(self, ctx):
+    @bot.tree.command(description="Sends ArchiveBot's help menu")
+    async def help(self, interaction: discord.Interaction):
         e = discord.Embed(color=0x0E0E0E)
         e.set_author(name="Bot Commands", icon_url="https://media.discordapp.net/attachments/807071768258805764/1143728544971763742/sdalogo.jpg")
         e.set_thumbnail(url="https://media.discordapp.net/attachments/807071768258805764/1143728544971763742/sdalogo.jpg")
@@ -107,11 +109,11 @@ class CommandCog(commands.Cog):
                   f"\n> 🧮 Misc"
         )
         view = DropdownView()
-        await ctx.send(embed=e, view=view, ephemeral=True)
+        await interaction.response.send_message(embed=e, view=view, ephemeral=True)
     
     # Info Command
-    @commands.hybrid_command(name="info", description="Sends information about ArchiveBot")
-    async def info(self, ctx):
+    @bot.tree.command(description="Sends information about ArchiveBot")
+    async def info(self, interaction: discord.Interaction):
         try:
             index_cog = self.bot.get_cog('IndexCog')
             if index_cog:
@@ -140,7 +142,7 @@ class CommandCog(commands.Cog):
             )
             e.add_field(
                 name="✧ __Statistics__",
-                value=f"> **Commands:** [17]"
+                value=f"> **Commands:** [10]"
 	                  f"\n> **Code:** {total_lines} Lines"
                       f"\n> **Ping:** {round(self.bot.latency * 1000)}ms"
                       f"\n> **Users:** {len(self.bot.users)}"
@@ -159,49 +161,32 @@ class CommandCog(commands.Cog):
                       f"\n:link: [Add ArchiveBot!](https://discord.com/api/oauth2/authorize?client_id=1143360299534143640&permissions=414464735297&scope=bot)",
                 inline=False
             )
-            e.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
+            e.set_footer(text=f"Requested by {interaction.user.name}", icon_url=interaction.user.avatar.url)
             e.timestamp = datetime.utcnow()
-            await ctx.send(embed=e, ephemeral=True)
+            await interaction.response.send_message(embed=e, ephemeral=True)
         except Exception as e:
             print(e)
                                  
     # Coinflip Command
-    @commands.hybrid_command(name="coinflip", description="Sends heads or tails", aliases=["cf"])
-    async def coinflip(self, ctx):
+    @bot.tree.command(description="Sends heads or tails")
+    async def coinflip(self, interaction: discord.Interaction):
         choice = ["Heads", "Tails"]
-        await ctx.send(f"{random.choice(choice)}!")
-
-    # Ask Command
-    @commands.command(name="ask", description="Ask ArchiveBot a question")
-    async def ask(self, ctx):
-        choice = ["Yes", "No", "Obviously", "Wtf??", "I'm not sure..", "Maybe...?", "Stop asking.", "Find out for yourself, smh", "Crabs", "Ask Derp :eyes:"]
-        await ctx.send(f"{random.choice(choice)}")
-
-    # Reverse Command
-    @commands.hybrid_command(name="reverse", description="Sends your message backwards")
-    async def reverse(self, ctx, *, arg="reverse"):
-        await ctx.send(arg[::-1])
-
-    # Say Command
-    @commands.hybrid_command(name="say", description="Sends your message")
-    async def say(self, ctx, *, arg):
-        await ctx.send(arg)
-        await ctx.message.delete()
+        await interaction.response.send_message(f"{random.choice(choice)}!")
     
     # Ping Command
-    @commands.hybrid_command(name="ping", description="Sends your ping")
-    async def ping(self, ctx):
+    @bot.tree.command(description="Sends your ping")
+    async def ping(self, interaction: discord.Interaction):
         e = discord.Embed(color=0x0E0E0E)
         e.add_field(
             name="📶 Ping",
             value=f"Your ping is **{round(self.bot.latency * 1000)}**ms",
     	    inline=False
         )
-        await ctx.send(embed=e)
+        await interaction.response.send_message(embed=e)
     
     # Love Test Command
-    @commands.hybrid_command(name="lovetest", description="Compares the love rate of two users")
-    async def lovetest(self, ctx, user1:discord.Member, user2:discord.Member):
+    @bot.tree.command(description="Compares the love rate of two users")
+    async def lovetest(self, interaction: discord.Interaction, user1:discord.Member, user2:discord.Member):
     
         love_rate = str(random.randrange(0, 100))
         derp_id = 532706491438727169
@@ -214,7 +199,7 @@ class CommandCog(commands.Cog):
                 value=f"**{user1.mention}** and **{user2.mention}** are a **100%** match! :flushed:",
                 inline=False
             )
-            await ctx.send(embed=e)
+            await interaction.response.send_message(embed=e)
         else:
             e = discord.Embed(color=0x0E0E0E)
             e.add_field(
@@ -222,11 +207,11 @@ class CommandCog(commands.Cog):
                 value=f"**{user1.mention}** and **{user2.mention}** are a **{love_rate}%** match! :flushed:",
                 inline=False
             )
-            await ctx.send(embed=e)                             
+            await interaction.response.send_message(embed=e)          
                                  
     # WhoIs Command
-    @commands.hybrid_command(name="whois", description="Sends information about a users account")
-    async def whois(self, ctx, user:discord.Member):
+    @bot.tree.command(description="Sends information about a users account")
+    async def whois(self, interaction: discord.Interaction, user:discord.Member):
         e = discord.Embed(color=0x0E0E0E)
         e.set_author(name=f"Gathering Information..."),
         if user.avatar:
@@ -278,175 +263,26 @@ class CommandCog(commands.Cog):
             e.set_image(url=banner_url)
         else:
             e.add_field(name="📰 Banner", value="None")
-        e.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url),
+        e.set_footer(text=f"Requested by {interaction.user.name}", icon_url=interaction.user.avatar.url),
         e.timestamp = datetime.utcnow()
-        await ctx.send(embed=e, ephemeral=True)
-                                  
-    # Snipe Events
-    sniped_message = None
+        await interaction.response.send_message(embed=e, ephemeral=True)                               
     
-    @commands.Cog.listener()
-    async def on_message_delete(self, message):
-        if message.author.bot:
-            return
-        global sniped_message
-        sniped_message = message
-        
-    @commands.Cog.listener()
-    async def on_message_edit(self, before, after):
-        if before.author.bot: 
-            return
-        global sniped_message
-        sniped_message = before
-        
-    # Snipe Command
-    @commands.hybrid_command(name="snipe", description="Retrieves a deleted or edited message")
-    async def snipe(self, ctx):
-        global sniped_message
-        if sniped_message is None:
-            await ctx.send("There are no recently deleted messages to snipe.")
-            return
-        if sniped_message.content:
-            e = discord.Embed(color=0x0E0E0E)
-            e.set_author(name=sniped_message.author.name, icon_url=sniped_message.author.avatar.url)
-            e.description = f"> {sniped_message.content}"
-            await ctx.send(embed=e)
-        elif sniped_message.attachments:
-            attachment_url = sniped_message.attachments[0].url
-            e = discord.Embed(color=0x0E0E0E)
-            e.set_author(name=sniped_message.author.name, icon_url=sniped_message.author.avatar.url)
-            e.set_image(url=attachment_url)
-            await ctx.send(embed=e)
-        sniped_message = None  # Reset sniped message after displaying                                 
-                                 
-    # Remind Command
-    @commands.hybrid_command(name="remind", description="Makes a reminder for you")
-    async def remind(self, ctx, time, *, task):
-        try:
-            def convert(time):
-                pos = ['s', 'm', 'h', 'd']
-                time_dict = {"s": 1, "m": 60, "h": 3600, "d": 3600*24}
-                unit = time[-1]
-                if unit not in pos:
-                    return -1
-                try:
-                    val = int(time[:-1])
-                except:
-                    return -2
-                return val * time_dict[unit]
-            converted_time = convert(time)
-            if converted_time == -1:
-                await ctx.send("You didn't input the time correctly!")
-                return
-            if converted_time == -2:
-                await ctx.send("The time must be an integer!")
-                return
-        
-            # Timer Embed
-            e = discord.Embed(color=0x0E0E0E)
-            e.description = "⏰ Started Reminder ⏰"
-            e.add_field(name="Time", value=time)
-            e.add_field(name="Task", value=task)
-            e.set_footer(text=f"Requested by {ctx.author}", icon_url=ctx.author.avatar.url)
-            e.timestamp = datetime.utcnow()
-            await ctx.send(embed=e, ephemeral=True)
-        
-            # End Timer Embed
-            await asyncio.sleep(converted_time)
-            await ctx.send(ctx.author.mention)
-            e = discord.Embed(color=0x0E0E0E)
-            e.description = "⏰ Time's Up ⏰"
-            e.add_field(name="Task", value=task)
-            await ctx.send(embed=e, ephemeral=True)
-        except Exception as e:
-            print(e)
-                                     
     # Emoji Steal Command
-    @commands.hybrid_command(name="esteal", description="Sends the image file link for a custom emoji")
-    async def esteal(self, ctx, emoji: discord.PartialEmoji):
-        if emoji.id:
-            emoji_url = emoji.url
-            await ctx.send(f":link: {emoji_url}", ephemeral=True)
-        else:
-            await ctx.send("Please provide a custom emoji.", ephemeral=True)
-    
-    # Poll Command - Slash
-    @commands.hybrid_command(name="poll", description="Creates a poll")
-    async def poll(self, ctx, question:str, option1:str=None, option2:str=None, option3:str=None, option4:str=None, option5:str=None):
-        options = [option1, option2, option3, option4, option5]
-        options = [option for option in options if option is not None]
-        emoji_list = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣"]      
-        if not options:
-            await ctx.send("Please provide at least two options for the poll.")
-            return
-        if len(options) > 5:
-            await ctx.send("You can only have up to 5 options in the poll.")
-            return       
-        e = discord.Embed(color=0x0E0E0E)
-        e.title = f"📊 **{question}**"
-        description_text = ""
-        for i, option in enumerate(options):
-            description_text += f"\n{emoji_list[i]} {option}"
-        e.description = description_text
-        msg = await ctx.send(embed=e)
-        for i in range(len(options)):
-            await msg.add_reaction(emoji_list[i])
-    
-    # Servers Command
-    @commands.hybrid_command(name="servers", description="Sends the servers the bot is in")
-    async def servers(self, ctx):
-        derp_id = 532706491438727169
-        
-        def generate_page(page):
-            page_guilds = pages[page]
-            guild_list = "\n".join(f"• {guild.name}" for guild in page_guilds)
-            return guild_list
-
+    @bot.tree.command(description="Sends the image file link for a custom emoji")
+    async def esteal(self, interaction: discord.Interaction, emoji: str):
         try:
-            if ctx.author.id == derp_id:
-                e = discord.Embed(color=0x0E0E0E)
-                e.set_author(name="Servers", icon_url=ctx.author.avatar.url)
-
-                if not self.bot.is_ready():
-                    await ctx.send("Bot is not ready yet.")
-                    return
-
-                pages = [list(self.bot.guilds)[i:i + 10] for i in range(0, len(self.bot.guilds), 10)]
-
-                if not pages:
-                    await ctx.send("The bot is not in any servers.")
-                    return
-
-                current_page = 0
-                guild_list = generate_page(current_page)
-                e.description = guild_list
-                message = await ctx.send(embed=e)
-
-                await message.add_reaction("◀️")
-                await message.add_reaction("▶️")
-
-                def check(reaction, user):
-                    return user == ctx.author and reaction.message.id == message.id
-
-                while True:
-                    try:
-                        reaction, user = await self.bot.wait_for("reaction_add", timeout=60, check=check)
-                        if reaction.emoji == "◀️":
-                            current_page = (current_page - 1) % len(pages)
-                        elif reaction.emoji == "▶️":
-                            current_page = (current_page + 1) % len(pages)
-                        guild_list = generate_page(current_page)
-                        e.description = guild_list
-                        await message.edit(embed=e)
-                        await message.remove_reaction(reaction, user)
-                    except asyncio.TimeoutError:
-                        await message.clear_reactions()
-                        break
+            match = re.match(r"<a?:([a-zA-Z0-9_]+):(\d+)>", emoji)
+            if match:
+                emoji_name = match.group(1)
+                emoji_id = int(match.group(2))
+                animated = emoji.startswith("<a:")
+                emoji_url = f"https://cdn.discordapp.com/emojis/{emoji_id}." + ("gif" if animated else "png")
+                await interaction.response.send_message(f":link: {emoji_url}", ephemeral=True)
             else:
-                return
+                await interaction.response.send_message("Invalid emoji format", ephemeral=True)
         except Exception as e:
             print(e)
-            
+
     
 async def setup(bot):
     await bot.add_cog(CommandCog(bot))
