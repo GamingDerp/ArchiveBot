@@ -8,7 +8,7 @@ import sys
 import random
 import discord
 from discord.ext import commands, tasks
-    
+
 class IndexCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -80,7 +80,7 @@ class IndexCog(commands.Cog):
         status.cancel()
         print("Successfully Indexed Servers")
     
-    # Search Command
+     # Search Command
     @commands.hybrid_command(name="search", description="Search for a server")
     async def search(self, ctx, *, search_term):
         try:
@@ -94,7 +94,6 @@ class IndexCog(commands.Cog):
             if not discords:
                 await ctx.send("No matching servers found.", ephemeral=True)
                 return
-
             pages = [list(discords.keys())[i:i + 10] for i in range(0, len(discords), 10)]
             current_page = 0
 
@@ -108,23 +107,36 @@ class IndexCog(commands.Cog):
                 e.set_footer(text=f"Page {current_page + 1}/{len(pages)}")
                 return e
             message = await ctx.send(embed=generate_page())
-            await message.add_reaction("◀️")
-            await message.add_reaction("▶️")
 
-            def check(reaction, user):
-                return user == ctx.author and reaction.message.id == message.id
+            async def pagination_callback(interaction, direction):
+                nonlocal current_page
+                if direction == "prev":
+                    current_page = (current_page - 1) % len(pages)
+                else:
+                    current_page = (current_page + 1) % len(pages)         
+                await interaction.response.edit_message(embed=generate_page())
+       
+            prev_button = discord.ui.Button(style=discord.ButtonStyle.primary, label="◀️")
+            next_button = discord.ui.Button(style=discord.ButtonStyle.primary, label="▶️")
+            prev_button.callback = lambda i: pagination_callback(i, "prev")
+            next_button.callback = lambda i: pagination_callback(i, "next")
+            view = discord.ui.View()
+            view.add_item(prev_button)
+            view.add_item(next_button)
+            await message.edit(embed=generate_page(), view=view)
+
             while True:
                 try:
-                    reaction, user = await self.bot.wait_for("reaction_add", timeout=60, check=check)
-                    if reaction.emoji == "◀️":
-                        current_page = (current_page - 1) % len(pages)
-                    elif reaction.emoji == "▶️":
-                        current_page = (current_page + 1) % len(pages)
-                    await message.edit(embed=generate_page())
-                    await message.remove_reaction(reaction, user)
+                    interaction = await self.bot.wait_for("button_click", timeout=60)
+                    if interaction.user == ctx.author and interaction.message.id == message.id:
+                        await interaction.callback(interaction)
                 except asyncio.TimeoutError:
-                    await message.clear_reactions()
-                    break               
+                    await message.edit(view=None)
+                    break
+                except Exception as e:
+                    print(e)
+        except asyncio.TimeoutError:
+            await message.edit(view=None)
         except Exception as e:
             print(e)
     
@@ -147,4 +159,4 @@ class IndexCog(commands.Cog):
             
     
 async def setup(bot):
-    await bot.add_cog(IndexCog(bot)) 
+    await bot.add_cog(IndexCog(bot))
