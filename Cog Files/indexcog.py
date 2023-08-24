@@ -8,7 +8,7 @@ import sys
 import random
 import discord
 from discord.ext import commands, tasks
-
+    
 class IndexCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -79,66 +79,6 @@ class IndexCog(commands.Cog):
         self.index = index
         status.cancel()
         print("Successfully Indexed Servers")
-
-    async def get_choice(self, ctx, options, user, timeout=30) -> Optional[object]:
-        async def add_reactions(message) -> None:
-            for emoji in emojis:
-                if not message:
-                    return
-                try:
-                    await message.add_reaction(emoji)
-                except discord.errors.NotFound:
-                    return
-                if len(options) > 5:
-                    await asyncio.sleep(1)
-                elif len(options) > 2:
-                    await asyncio.sleep(0.5)
-                
-        emojis = ["1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣", "9️"][:len(options)]
-        if not user:
-            user = ctx.author
-
-        e = discord.Embed(color=0x0E0E0E)
-        e.set_author(name="Select which option", icon_url=user.avatar.url)
-        e.description = "\n".join(f"{emojis[i]} {option}" for i, option in enumerate(options))
-        e.set_footer(text=f"You have 30 seconds")
-        message = await ctx.send(embed=e)
-        self.loop.create_task(add_reactions(message))
-
-        try:
-            reaction, _user = await self.wait_for("reaction_add", check=predicate, timeout=timeout)
-        except asyncio.TimeoutError:
-            await message.delete()
-            return None
-        else:
-            await message.delete()
-            return options[emojis.index(str(reaction.emoji))]
-
-    async def display(self, options: dict, context):
-        async def wait_for_button_click():
-            def check(interaction):
-                return interaction.user == context.author and interaction.message.id == message.id
-            try:
-                interaction = await bot.wait_for("button_click", check=check, timeout=60)
-                return interaction
-            except asyncio.TimeoutError:
-                await message.edit(content="Menu Inactive")
-                return None
-
-        pages = []
-        tmp_page = {}
-        index = 1
-        for i, (key, value) in enumerate(options.items()):
-            value = options[key]
-            if index > 20:
-                index = 1
-                pages.append(tmp_page)
-                tmp_page = {}
-                continue
-            tmp_page[key] = value
-            index += 1
-        pages.append(tmp_page)
-        page = 0
     
     # Search Command
     @commands.hybrid_command(name="search", description="Search for a server")
@@ -204,7 +144,7 @@ class IndexCog(commands.Cog):
             await ctx.send(embed=e, ephemeral=True)
         except Exception as e:
             print(e)
-    
+            
     
 async def setup(bot):
     await bot.add_cog(IndexCog(bot)) 
