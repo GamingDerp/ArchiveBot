@@ -80,7 +80,7 @@ class IndexCog(commands.Cog):
         status.cancel()
         print("Successfully Indexed Servers")
     
-     # Search Command
+    # Search Command
     @commands.hybrid_command(name="search", description="Search for a server")
     async def search(self, ctx, *, search_term):
         try:
