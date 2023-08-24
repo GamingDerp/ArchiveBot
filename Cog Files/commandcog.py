@@ -182,7 +182,7 @@ class CommandCog(commands.Cog):
             value=f"Your ping is **{round(self.bot.latency * 1000)}**ms",
     	    inline=False
         )
-        await interaction.response.send_message(embed=e)
+        await interaction.response.send_message(embed=e, ephemeral=True)
     
     # Love Test Command
     @bot.tree.command(description="Compares the love rate of two users")
