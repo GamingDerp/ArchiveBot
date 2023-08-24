@@ -106,7 +106,7 @@ class IndexCog(commands.Cog):
                     e.description += f"\n• [{server}]({link})"
                 e.set_footer(text=f"Page {current_page + 1}/{len(pages)}")
                 return e
-            message = await ctx.send(embed=generate_page())
+            message = await ctx.send(embed=generate_page(), ephemeral=True)
 
             async def pagination_callback(interaction, direction):
                 nonlocal current_page
