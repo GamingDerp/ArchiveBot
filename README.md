@@ -1,7 +1,7 @@
 [![Join - Stoneworks Discord Archive](https://img.shields.io/badge/Join-Stoneworks_Discord_Archive-5865f2?logo=Discord&logoColor=%235865f2)](https://discord.gg/v4WAvEYe2Z)
 [![Add - ArchiveBot](https://img.shields.io/badge/Add-ArchiveBot-Green)](https://discord.com/api/oauth2/authorize?client_id=1143360299534143640&permissions=414464724032&scope=bot)
 [![v - 0.0.2](https://img.shields.io/badge/v-0.0.2-FF0000)](https://)
-[![python - 3.11.2](https://img.shields.io/badge/python-3.11.2-0096FF?logo=Python)]([https://](https://www.python.org))
+[![python - 3.11.2](https://img.shields.io/badge/python-3.11.2-blue?logo=Python&logoColor=light+blue)](https://www.python.org)
 [![discord.py - 2.3.1](https://img.shields.io/badge/discord.py-2.3.1-FFFF00?logo=Python)](https://github.com/Rapptz/discord.py)
 
 # 🏛 ArchiveBot 🏛
