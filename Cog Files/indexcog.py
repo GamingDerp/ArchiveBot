@@ -25,7 +25,7 @@ class IndexCog(commands.Cog):
                 await self.index_servers()
             except:
                 print(traceback.format_exc())
-            await asyncio.sleep(3600 * 6)
+            await asyncio.sleep(3600)
 
     async def on_command_error(self, context, exception):
         ignored = (commands.CommandNotFound)
