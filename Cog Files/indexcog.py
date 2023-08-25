@@ -83,6 +83,8 @@ class IndexCog(commands.Cog):
     # Search Command
     @commands.hybrid_command(name="search", description="Search for a server")
     async def search(self, ctx, *, search_term):
+        if ctx.prefix == "!" and ctx.invoked_with in ["search"]:
+            return
         try:
             search_term = search_term.lower()
             discords = {}
@@ -143,6 +145,8 @@ class IndexCog(commands.Cog):
     # Random Command
     @commands.hybrid_command(name="random", description="Sends a random discord link")
     async def random(self, ctx):
+        if ctx.prefix == "!" and ctx.invoked_with in ["random"]:
+            return
         try:
             e = discord.Embed(color=0x0E0E0E)
             e.set_author(name="Random Server")
