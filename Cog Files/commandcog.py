@@ -8,8 +8,8 @@ from datetime import datetime, timedelta
 import time
 import asyncio
 
-# Stores when the bot was started
-bot = commands.Bot(command_prefix="!", intents=discord.Intents.default())
+# Stores when the 
+bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 bot.launch_time = datetime.utcnow()
 
 # Server Commands Embed
@@ -158,7 +158,7 @@ class CommandCog(commands.Cog):
             e.add_field(
                 name="✧ __Links__",
                 value=f"<:GitHub:1123773190238392504> [Repo Link](https://github.com/GamingDerp/ArchiveBot)"
-                      f"\n:link: [Add ArchiveBot!](https://discord.com/api/oauth2/authorize?client_id=1143360299534143640&permissions=414464735297&scope=bot)",
+                      f"\n:link: [Add ArchiveBot!](https://discord.com/api/oauth2/authorize?client_id=1143360299534143640&permissions=414464724032&scope=bot)",
                 inline=False
             )
             e.set_footer(text=f"Requested by {interaction.user.name}", icon_url=interaction.user.avatar.url)
