@@ -192,12 +192,21 @@ class CommandCog(commands.Cog):
         love_rate = str(random.randrange(0, 100))
         derp_id = 532706491438727169
         oni_id = 700958482454806574
+        terra_id = 240233060455546882
     
         if user1.id == derp_id and user2.id == oni_id or user1.id == oni_id and user2.id == derp_id:
             e = discord.Embed(color=0x0E0E0E)
             e.add_field(
                 name="❤️ Love Test",
                 value=f"**{user1.mention}** and **{user2.mention}** are a **100%** match! :flushed:",
+                inline=False
+            )
+            await interaction.response.send_message(embed=e)
+        elif user1.id == derp_id and user2.id == terra_id or user1.id == terra_id and user2.id == derp_id:
+            e = discord.Embed(color=0x0E0E0E)
+            e.add_field(
+                name="❤️ Love Test",
+                value=f"**{user1.mention}** and **{user2.mention}** are a **99.99%** match! :flushed:",
                 inline=False
             )
             await interaction.response.send_message(embed=e)
@@ -208,7 +217,7 @@ class CommandCog(commands.Cog):
                 value=f"**{user1.mention}** and **{user2.mention}** are a **{love_rate}%** match! :flushed:",
                 inline=False
             )
-            await interaction.response.send_message(embed=e)          
+            await interaction.response.send_message(embed=e)      
                                  
     # WhoIs Command
     @bot.tree.command(description="Sends information about a users account")
