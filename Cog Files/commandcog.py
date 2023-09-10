@@ -193,31 +193,24 @@ class CommandCog(commands.Cog):
         derp_id = 532706491438727169
         oni_id = 700958482454806574
         terra_id = 240233060455546882
-    
+        jimmy_id = 318391989198651394
+        zuko_id = 173072155498512385
+        
+        e = discord.Embed(color=0x0E0E0E)
+        e.title = "❤️ Love Test"
+        
         if user1.id == derp_id and user2.id == oni_id or user1.id == oni_id and user2.id == derp_id:
-            e = discord.Embed(color=0x0E0E0E)
-            e.add_field(
-                name="❤️ Love Test",
-                value=f"**{user1.mention}** and **{user2.mention}** are a **100%** match! :flushed:",
-                inline=False
-            )
+            e.description = f"**{user1.mention}** and **{user2.mention}** are a **100%** match! :flushed:"
             await interaction.response.send_message(embed=e)
         elif user1.id == derp_id and user2.id == terra_id or user1.id == terra_id and user2.id == derp_id:
-            e = discord.Embed(color=0x0E0E0E)
-            e.add_field(
-                name="❤️ Love Test",
-                value=f"**{user1.mention}** and **{user2.mention}** are a **99.99%** match! :flushed:",
-                inline=False
-            )
+            e.description = f"**{user1.mention}** and **{user2.mention}** are a **99.99%** match! :flushed:"
+            await interaction.response.send_message(embed=e)
+        elif user1.id == jimmy_id and user2.id == zuko_id or user1.id == zuko_id and user2.id == jimmy_id:
+            e.description = f"**{user1.mention}** and **{user2.mention}** are a **100%** match! :flushed:"
             await interaction.response.send_message(embed=e)
         else:
-            e = discord.Embed(color=0x0E0E0E)
-            e.add_field(
-                name="❤️ Love Test",
-                value=f"**{user1.mention}** and **{user2.mention}** are a **{love_rate}%** match! :flushed:",
-                inline=False
-            )
-            await interaction.response.send_message(embed=e)      
+            e.description = f"**{user1.mention}** and **{user2.mention}** are a **{love_rate}%** match! :flushed:"
+            await interaction.response.send_message(embed=e)   
                                  
     # WhoIs Command
     @bot.tree.command(description="Sends information about a users account")
