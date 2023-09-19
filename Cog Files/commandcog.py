@@ -84,7 +84,7 @@ class CommandCog(commands.Cog):
     async def on_message(self, message):
         bot_id = 1143360299534143640
         if str(bot_id) in message.content:
-            await message.channel.send("I've been summoned! If you need me do `!help` <:CatWave:1123898399557693470>")
+            await message.channel.send("I've been summoned! If you need me do `/help` <:CatWave:1123898399557693470>")
     
     # Test command
     @bot.tree.command(description="Sends a message if the bot is online")
