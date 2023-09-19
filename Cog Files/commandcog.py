@@ -86,10 +86,6 @@ class CommandCog(commands.Cog):
         if str(bot_id) in message.content:
             await message.channel.send("I've been summoned! If you need me do `!help` <:CatWave:1123898399557693470>")
     
-    @commands.Cog.listener()
-    async def on_ready(self):
-            await self.bot.tree.sync()
-    
     # Test command
     @bot.tree.command(description="Sends a message if the bot is online")
     async def test(self, interaction: discord.Interaction):
@@ -162,7 +158,7 @@ class CommandCog(commands.Cog):
                       f"\n:link: [Add ArchiveBot!](https://discord.com/api/oauth2/authorize?client_id=1143360299534143640&permissions=414464724032&scope=bot)",
                 inline=False
             )
-            e.set_footer(text=f"Requested by {interaction.user.name}", icon_url=interaction.user.avatar.url)
+            e.set_footer(text=f"Requested by {interaction.user.name}")
             e.timestamp = datetime.utcnow()
             await interaction.response.send_message(embed=e, ephemeral=True)
         except Exception as e:
@@ -263,7 +259,7 @@ class CommandCog(commands.Cog):
             e.set_image(url=banner_url)
         else:
             e.add_field(name="📰 Banner", value="None")
-        e.set_footer(text=f"Requested by {interaction.user.name}", icon_url=interaction.user.avatar.url),
+        e.set_footer(text=f"Requested by {interaction.user.name}"),
         e.timestamp = datetime.utcnow()
         await interaction.response.send_message(embed=e, ephemeral=True)                               
     
