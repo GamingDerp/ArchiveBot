@@ -10,11 +10,11 @@ These Terms of Service ("Terms") govern the use of the "ArchiveBot" Discord bot 
    1.1 Limited License: Subject to your compliance with these Terms, we grant you a limited, non-exclusive, non-transferable, and revocable license to use the Bot for its intended purpose on your Discord server(s).
 
    1.2 Restrictions: You may not, and you may not permit others to:
-      - Modify, reverse engineer, decompile, or disassemble the Bot.
-      - Use the Bot for any illegal or unauthorized purpose.
-      - Violate the Discord Terms of Service or any other applicable terms.
-      - Engage in any activity that may disrupt or interfere with the Bot's operation or the Discord platform.
-      - Use the Bot in a manner that violates the rights of any third party, including intellectual property rights.
+   - Modify, reverse engineer, decompile, or disassemble the Bot.
+   - Use the Bot for any illegal or unauthorized purpose.
+   - Violate the Discord Terms of Service or any other applicable terms.
+   - Engage in any activity that may disrupt or interfere with the Bot's operation or the Discord platform.
+   - Use the Bot in a manner that violates the rights of any third party, including intellectual property rights.
 
    1.3 Ownership: The Bot and all related intellectual property rights are owned by the Developer. You have no ownership rights in the Bot, and these Terms do not grant you any rights to use our trademarks or branding.
 
