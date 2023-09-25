@@ -48,6 +48,8 @@ We may update these Terms from time to time, and the updated version will be eff
 
 For any questions or concerns regarding these Terms or the Bot, please contact GamingDerp via Discord.
 
+Discord: `gamingderp`
+
 **These Terms of Service constitute the entire agreement between you and GamingDerp concerning the use of ArchiveBot and supersedes all prior or contemporaneous understandings and agreements. These Terms shall be governed by and construed in accordance with the laws of the United States, without regard to its conflict of law principles.**
 
 By using ArchiveBot, you affirm that you have read, understood, and agree to be bound by these Terms of Service.
