@@ -18,33 +18,33 @@ These Terms of Service ("Terms") govern the use of the "ArchiveBot" Discord bot 
 
 1.3 Ownership: The Bot and all related intellectual property rights are owned by the Developer. You have no ownership rights in the Bot, and these Terms do not grant you any rights to use our trademarks or branding.
 
-**2. Data Collection and Storage**
+## 2. Data Collection and Storage
 
 2.1 Limited Data Collection: The Bot may collect and store limited data, including but not limited to necessary information solely for debugging, improving the Bot, and monitoring command usage for the purpose of upgrading the Bot. We do not collect data from servers or users for any other purposes.
 
 2.2 Privacy and Transparency: We are committed to protecting your privacy. We will handle any collected data in accordance with our Privacy Policy, which is incorporated into these Terms by reference. You can rest assured that we do not store data from servers or users except as described in these Terms.
 
-**3. Termination**
+## 3. Termination
 
 3.1 Termination by User: You may stop using the Bot at any time by removing it from your Discord server(s).
 
 3.2 Termination by Developer: We reserve the right to terminate your access to the Bot at any time, with or without cause and with or without notice.
 
-**4. Disclaimer of Warranties**
+## 4. Disclaimer of Warranties
 
 4.1 As Is: The Bot is provided "as is" without warranties of any kind, either express or implied, including, but not limited to, the implied warranties of merchantability, fitness for a particular purpose, or non-infringement.
 
 4.2 No Guarantees: We do not guarantee the availability, reliability, or functionality of the Bot. We may modify or discontinue the Bot at any time without notice.
 
-**5. Limitation of Liability**
+## 5. Limitation of Liability
 
 To the fullest extent permitted by applicable law, the Developer shall not be liable for any indirect, incidental, special, consequential, or punitive damages, or any loss of profits or revenues, whether incurred directly or indirectly, or any loss of data, use, goodwill, or other intangible losses, resulting from (a) your use or inability to use the Bot; (b) any unauthorized access to or use of our servers and/or any personal information stored therein; (c) any errors or omissions in the Bot's operation; or (d) any other matter relating to the Bot.
 
-**6. Changes to Terms**
+## 6. Changes to Terms
 
 We may update these Terms from time to time, and the updated version will be effective upon posting on our website or within the Bot. Your continued use of the Bot after such changes constitutes your acceptance of the updated Terms.
 
-**7. Contact Information**
+## 7. Contact Information
 
 For any questions or concerns regarding these Terms or the Bot, please contact GamingDerp via Discord.
 
