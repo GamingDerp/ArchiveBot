@@ -2,6 +2,7 @@
 
 ### Effective Date: September 24th, 2023
 
+## Introduction
 These Terms of Service ("Terms") govern the use of the "ArchiveBot" Discord bot (the "Bot") developed and operated by GamingDerp ("Developer," "we," "us," or "our"). By using the Bot, you ("User," "you," or "your") agree to comply with and be bound by these Terms. If you do not agree to these Terms, please do not use the Bot.
 
 # Terms
