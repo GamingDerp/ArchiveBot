@@ -155,7 +155,8 @@ class CommandCog(commands.Cog):
                 name="✧ __Links__",
                 value=f"<:Discord:1143769008420692009> [Join SDA!](https://discord.gg/v4WAvEYe2Z)"
                       f"\n<:GitHub:1123773190238392504> [Repo Link](https://github.com/GamingDerp/ArchiveBot)"
-                      f"\n:link: [Add ArchiveBot!](https://discord.com/api/oauth2/authorize?client_id=1143360299534143640&permissions=414464724032&scope=bot)",
+                      f"\n:link: [Add ArchiveBot!](https://discord.com/api/oauth2/authorize?client_id=1143360299534143640&permissions=414464724032&scope=bot)"
+		      f"\n:coin: [Tip ArchiveBot!](https://tpjr.us/archivebot)",
                 inline=False
             )
             e.set_footer(text=f"Requested by {interaction.user.name}")
