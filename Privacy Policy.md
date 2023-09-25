@@ -18,7 +18,7 @@ Welcome to the **ArchiveBot Privacy Policy**. This Privacy Policy is intended to
 
 ## 3. Cookies and Tracking
 
-  ArchiveBot does not use cookies or any other tracking mechanisms to collect information about your online activities.
+  ArchiveBot does not use cookies or any other tracking mechanisms to collect information about your online activities. It is a Discord bot and does not have access to that information, nor an intetention to collect it.
 
 ## 4. Third-Party Services
 
