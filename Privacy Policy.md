@@ -5,6 +5,7 @@
 
 Welcome to the **ArchiveBot Privacy Policy**. This Privacy Policy is intended to inform users ("you," "your") of the privacy practices of ArchiveBot, a 'Discord' bot created and developed by "GamingDerp" ("we," "our," "us"). **ArchiveBot** is committed to protecting your privacy and ensuring the security of your data.
 
+# Policies
 ## 1. Information We Do Not Collect
 
   ArchiveBot does not collect, store, or process any user or server data, including but not limited to:
