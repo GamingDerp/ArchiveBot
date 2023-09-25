@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 import time
 import asyncio
 
-# Stores when the 
+# Stores when the bot started up / intents
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 bot.launch_time = datetime.utcnow()
 
