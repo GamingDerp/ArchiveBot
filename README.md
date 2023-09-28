@@ -3,7 +3,7 @@
 [![v - 0.0.2](https://img.shields.io/badge/v-0.0.2-FF0000)](https://)
 [![python - 3.11.2](https://img.shields.io/badge/python-3.11.2-blue?logo=Python&logoColor=light+blue)](https://www.python.org)
 [![discord.py - 2.3.1](https://img.shields.io/badge/discord.py-2.3.1-FFFF00?logo=Python)](https://github.com/Rapptz/discord.py)
-[![Tip ArchiveBot](https://img.shields.io/badge/TiPJAR-Green)]([https://tpjr.us/archivebot](https://linktr.ee/StoneworksDiscordArchive))
+[![Tip ArchiveBot](https://img.shields.io/badge/Tip_ArchiveBot-Green?logo=LinkTree)](https://linktr.ee/StoneworksDiscordArchive)
 
 # 🏛 ArchiveBot 🏛
 ***ArchiveBot*** is a multi-server discord bot that's meant to connect the "Stoneworks" community, link by link. This is a public repository for those who are interested, and to ensure it's safety for users.
