@@ -8,7 +8,7 @@ from datetime import datetime, timedelta
 import time
 import asyncio
 
-# Stores when the bot started up / intents
+# Stores when the 
 bot = commands.Bot(command_prefix="!", intents=discord.Intents.all())
 bot.launch_time = datetime.utcnow()
 
@@ -45,7 +45,7 @@ me.set_author(name="Bot Commands", icon_url="https://media.discordapp.net/attach
 me.set_thumbnail(url="https://media.discordapp.net/attachments/807071768258805764/1143728544971763742/sdalogo.jpg")
 me.add_field(
     name="🧮 __Misc Commands__",
-    value=f"> `Whois`, `ESteal`",
+    value=f"> `Whois`, `ESteal`, `WordCount`",
 )
 
 # Help Menu Dropdown
@@ -55,7 +55,7 @@ class Dropdown(discord.ui.Select):
             discord.SelectOption(label="Server Commands", description="Search, Random", emoji="🔍"),
             discord.SelectOption(label="General Commands",description="Help, Info, Test, Ping", emoji="📌"),
             discord.SelectOption(label="Fun Commands", description="Coinflip, Lovetest", emoji="🎉"),
-            discord.SelectOption(label="Misc Commands", description="Whois, ESteal", emoji="🧮"),
+            discord.SelectOption(label="Misc Commands", description="Whois, ESteal, WordCount", emoji="🧮"),
         ]
         super().__init__(min_values=1, max_values=1, options=options)
 
@@ -138,7 +138,7 @@ class CommandCog(commands.Cog):
             )
             e.add_field(
                 name="✧ __Statistics__",
-                value=f"> **Commands:** [10]"
+                value=f"> **Commands:** [11]"
 	              f"\n> **Code:** {total_lines} Lines"
                       f"\n> **Ping:** {round(self.bot.latency * 1000)}ms"
                       f"\n> **Users:** {len(self.bot.users)}"
@@ -156,7 +156,7 @@ class CommandCog(commands.Cog):
                 value=f"<:Discord:1143769008420692009> [Join SDA!](https://discord.gg/v4WAvEYe2Z)"
                       f"\n<:GitHub:1123773190238392504> [Repo Link](https://github.com/GamingDerp/ArchiveBot)"
                       f"\n:link: [Add ArchiveBot!](https://discord.com/api/oauth2/authorize?client_id=1143360299534143640&permissions=414464724032&scope=bot)"
-		      f"\n:coin: [Tip ArchiveBot!](https://linktr.ee/StoneworksDiscordArchive)",
+                      f"\n:coin: [Tip ArchiveBot!](https://linktr.ee/StoneworksDiscordArchive)",
                 inline=False
             )
             e.set_footer(text=f"Requested by {interaction.user.name}")
@@ -262,7 +262,7 @@ class CommandCog(commands.Cog):
             e.add_field(name="📰 Banner", value="None")
         e.set_footer(text=f"Requested by {interaction.user.name}"),
         e.timestamp = datetime.utcnow()
-        await interaction.response.send_message(embed=e, ephemeral=True)                               
+        await interaction.response.send_message(embed=e, ephemeral=True)
     
     # Emoji Steal Command
     @bot.tree.command(description="Sends the image file link for a custom emoji")
@@ -279,7 +279,15 @@ class CommandCog(commands.Cog):
                 await interaction.response.send_message("Invalid emoji format", ephemeral=True)
         except Exception as e:
             print(e)
-
     
+    # Word Count Command
+    @bot.tree.command(description="Count the number of times a word appears in the last 100 messages")
+    async def wordcount(self, interaction: discord.Interaction, word_to_count: str):
+        message_count = 0
+        async for message in interaction.channel.history(limit=100):
+            if word_to_count in message.content:
+                message_count += 1
+        await interaction.response.send_message(f"The word **{word_to_count}** appeared {message_count} time(s) in the last 100 messages.", ephemeral=True)
+
 async def setup(bot):
     await bot.add_cog(CommandCog(bot))
