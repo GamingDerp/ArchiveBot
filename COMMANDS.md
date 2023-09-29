@@ -28,3 +28,4 @@ Command | Description | Usage
 --- | --- | ---
 whois | Sends information about a user's account | `whois @user`
 esteal | Grabs and sends the file link from a custom emoji | `esteal :emoji:`
+wordcount | Counts the usage amount of the keyword in the last 100 messages | `wordcount <word>`
