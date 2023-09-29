@@ -289,5 +289,6 @@ class CommandCog(commands.Cog):
                 message_count += 1
         await interaction.response.send_message(f"The word **{word_to_count}** appeared {message_count} time(s) in the last 100 messages.", ephemeral=True)
 
+
 async def setup(bot):
     await bot.add_cog(CommandCog(bot))
