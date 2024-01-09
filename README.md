@@ -2,7 +2,7 @@
 [![Add - ArchiveBot](https://img.shields.io/badge/Add-ArchiveBot-Green)](https://discord.com/api/oauth2/authorize?client_id=1143360299534143640&permissions=414464724032&scope=bot)
 [![v - 0.0.3](https://img.shields.io/badge/v-0.0.3-FF0000)](https://)
 [![python - 3.11.2](https://img.shields.io/badge/python-3.11.2-blue?logo=Python&logoColor=light+blue)](https://www.python.org)
-[![discord.py - 2.3.1](https://img.shields.io/badge/discord.py-2.3.1-FFFF00?logo=Python)](https://github.com/Rapptz/discord.py)
+[![discord.py - 2.3.2](https://img.shields.io/badge/discord.py-2.3.2-FFFF00?logo=Python)](https://github.com/Rapptz/discord.py)
 [![Tip ArchiveBot](https://img.shields.io/badge/Tip_ArchiveBot-Green?logo=LinkTree)](https://linktr.ee/StoneworksDiscordArchive)
 
 # 🏛 ArchiveBot 🏛
