@@ -1,3 +1,5 @@
+# If you're going to use the code in this file, rename it to "main.py", otherwise the bot won't work. -Derp
+
 import os
 import discord
 import asyncio
