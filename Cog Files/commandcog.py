@@ -11,7 +11,7 @@ from discord import app_commands
 intents = discord.Intents.default()
 intents.message_content = True  
 intents.guilds = True           
-intents.messages = True         
+intents.messages = True
 intents.reactions = True
 
 bot = commands.Bot(command_prefix="!", intents=intents)
