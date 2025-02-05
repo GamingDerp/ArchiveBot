@@ -52,7 +52,7 @@ class IndexCog(commands.Cog):
             index += 1
             if index + 1 == len(chars):
                 index = 0
-            await asyncio.sleep(0.21)
+            await asyncio.sleep(0.20)
 
     async def index_servers(self):
         status = self.bot.loop.create_task(self.wait("Indexing Servers"))
