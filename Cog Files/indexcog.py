@@ -13,7 +13,7 @@ class IndexCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         self.last_updated = None
-        self.Categories = [840074899447480360, 840052147936165911, 849423703091445840, 1112916591043153980, 969999473189199932]
+        self.Categories = [840074899447480360, 840052147936165911, 849423703091445840, 1112916591043153980, 969999473189199932, 1223189260895522886]
         self.server_id = self.bot.config["server_id"]
         self.index = {}
         
