@@ -96,9 +96,9 @@ class IndexCog(commands.Cog):
             if not discords:
                 await ctx.send("No matching servers found.", ephemeral=True)
                 return
-            pages = [list(discords.keys())[i:i + 10] for i in range(0, len(discords), 10)]
+            sorted_servers = sorted(discords.keys())
+            pages = [sorted_servers[i:i + 10] for i in range(0, len(sorted_servers), 10)]
             current_page = 0
-
             def generate_page():
                 e = discord.Embed(color=0x0E0E0E)
                 e.set_author(name=f"Servers with '{search_term}' in their name")
@@ -109,7 +109,6 @@ class IndexCog(commands.Cog):
                 e.set_footer(text=f"Page {current_page + 1}/{len(pages)}")
                 return e
             message = await ctx.send(embed=generate_page(), ephemeral=True)
-
             async def pagination_callback(interaction, direction):
                 nonlocal current_page
                 if direction == "prev":
@@ -117,7 +116,6 @@ class IndexCog(commands.Cog):
                 else:
                     current_page = (current_page + 1) % len(pages)         
                 await interaction.response.edit_message(embed=generate_page())
-       
             prev_button = discord.ui.Button(style=discord.ButtonStyle.primary, label="◀️")
             next_button = discord.ui.Button(style=discord.ButtonStyle.primary, label="▶️")
             prev_button.callback = lambda i: pagination_callback(i, "prev")
@@ -126,7 +124,6 @@ class IndexCog(commands.Cog):
             view.add_item(prev_button)
             view.add_item(next_button)
             await message.edit(embed=generate_page(), view=view)
-
             while True:
                 try:
                     interaction = await self.bot.wait_for("button_click", timeout=60)
