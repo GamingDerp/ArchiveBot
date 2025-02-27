@@ -27,22 +27,6 @@ class IndexCog(commands.Cog):
                 print(traceback.format_exc())
             await asyncio.sleep(86400)
 
-    async def on_command_error(self, context, exception):
-        ignored = (commands.CommandNotFound)
-        if isinstance(exception, ignored):
-            return
-        await context.send(embed=discord.Embed(description=str(exception)))
-        silent = (
-            commands.MissingRequiredArgument,
-            commands.CommandOnCooldown,
-            commands.BadArgument,
-            commands.CheckFailure,
-            commands.NoPrivateMessage,
-            commands.DisabledCommand
-        )
-        if not isinstance(exception, silent):
-            traceback.print_exception(type(exception), exception, exception.__traceback__, file=sys.stderr)
-
     async def wait(self, message):
         print(message)
         index = 0
