@@ -71,7 +71,6 @@ class IndexCog(commands.Cog):
             print(f"Failed to update channel name: {e}")
         print("Successfully Indexed Servers")
     
-    # Search Command
     @commands.hybrid_command(name="search", description="Search for a server")
     async def search(self, ctx, *, search_term):
         if ctx.prefix == "!" and ctx.invoked_with in ["search"]:
@@ -130,7 +129,6 @@ class IndexCog(commands.Cog):
         except Exception as e:
             print(e)
     
-    # Random Command
     @commands.hybrid_command(name="random", description="Sends a random discord link")
     async def random(self, ctx):
         if ctx.prefix == "!" and ctx.invoked_with in ["random"]:
