@@ -41,6 +41,7 @@ class IndexCog(commands.Cog):
     async def index_servers(self):
         status = self.bot.loop.create_task(self.wait("Indexing Servers"))
         index = {}
+        server_count = 0
         server = self.bot.get_guild(self.server_id)
         if server:
             for category_id in self.Categories:
@@ -58,10 +59,16 @@ class IndexCog(commands.Cog):
                         }
                         if server_data:
                             category_data[channel.name.lower()] = server_data
+                            server_count += len(server_data)
                     if category_data:
                         index[category.name.lower()] = category_data
         self.index = index
         status.cancel()
+        channel = self.bot.get_channel(1337751646977134704)
+        try:
+            await channel.edit(name=f"🧾 Servers Indexed: {server_count}")
+        except discord.HTTPException as e:
+            print(f"Failed to update channel name: {e}")
         print("Successfully Indexed Servers")
     
     # Search Command
