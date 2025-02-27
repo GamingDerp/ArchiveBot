@@ -14,14 +14,12 @@ intents.guilds = True
 intents.messages = True         
 intents.reactions = True
 
-# Bot Intents & Defining Bot
 bot = commands.Bot(command_prefix="!", intents=intents)
 bot.remove_command('help')    
 bot.config = {
     "server_id": 840052141258309672,
 }
 
-# Loading Cogs
 async def load():
     for filename in os.listdir("./cogs"):
         if filename.endswith(".py"):
@@ -31,7 +29,6 @@ async def main():
     await load()
     await bot.start("TOKEN")
     
-# Startup Event
 @bot.listen()
 async def on_ready():
     await bot.change_presence(activity=discord.Game(name="Connecting Stoneworks.."))
