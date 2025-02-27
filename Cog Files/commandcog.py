@@ -64,11 +64,6 @@ class CommandCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @commands.Cog.listener()
-    async def on_message(self, message):
-        if str(bot_id) in message.content:
-            await message.channel.send("I've been summoned! If you need me do `/help` <:CatWave2:1180121318658682971>")
-    
     # Test command
     @bot.tree.command(description="Sends a message if the bot is online")
     async def test(self, interaction: discord.Interaction):
