@@ -20,7 +20,6 @@ bot_id = 1143360299534143640
 sda_logo = "https://media.discordapp.net/attachments/807071768258805764/1143728544971763742/sdalogo.jpg"
 sda_color = 0x0E0E0E
 
-# Server Commands Embed
 se = discord.Embed(color=sda_color)
 se.set_author(name="Bot Commands", icon_url=sda_logo)
 se.set_thumbnail(url=sda_logo)
@@ -29,7 +28,6 @@ se.add_field(
     value=f"> `Search`, `Random`",
 )
 
-# General Commands Embed
 ge = discord.Embed(color=sda_color)
 ge.set_author(name="Bot Commands", icon_url=sda_logo)
 ge.set_thumbnail(url=sda_logo)
@@ -38,7 +36,6 @@ ge.add_field(
     value=f"> `Help`, `Info`, `Test`",
 )
 
-# Help Menu Dropdown
 class Dropdown(discord.ui.Select):
     def __init__(self):
         options = [
@@ -53,23 +50,19 @@ class Dropdown(discord.ui.Select):
         if self.values[0] == "General Commands":
             await interaction.response.edit_message(embed=ge)
     
-# DropdownView Class
 class DropdownView(discord.ui.View):
     def __init__(self):
         super().__init__()
         self.add_item(Dropdown())      
         
-# Commands Class
 class CommandCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    # Test command
     @bot.tree.command(description="Sends a message if the bot is online")
     async def test(self, interaction: discord.Interaction):
             await interaction.response.send_message("I'm up and indexing! <a:DerpPet:1146087107606098022>", ephemeral=True)
     
-    # Help Command
     @bot.tree.command(description="Sends ArchiveBot's help menu")
     async def help(self, interaction: discord.Interaction):
         e = discord.Embed(color=sda_color)
@@ -83,7 +76,6 @@ class CommandCog(commands.Cog):
         view = DropdownView()
         await interaction.response.send_message(embed=e, view=view, ephemeral=True)
     
-    # Info Command
     @bot.tree.command(description="Sends information about ArchiveBot")
     async def info(self, interaction: discord.Interaction):
         try:
