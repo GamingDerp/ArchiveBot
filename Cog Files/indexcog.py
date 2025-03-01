@@ -84,50 +84,56 @@ class IndexCog(commands.Cog):
                         if search_term in str(server).lower():
                             discords[server] = link
             if not discords:
-                await ctx.send("No matching servers found.", ephemeral=True)
+                await ctx.interaction.response.send_message("No matching servers found.", ephemeral=True)
                 return
             sorted_servers = sorted(discords.keys())
             pages = [sorted_servers[i:i + 10] for i in range(0, len(sorted_servers), 10)]
             current_page = 0
             def generate_page():
-                e = discord.Embed(color=0x0E0E0E)
-                e.set_author(name=f"Servers with '{search_term}' in their name")
-                e.description = ""
-                for server in pages[current_page]:
-                    link = discords[server]
-                    e.description += f"\n• [{server}]({link})"
-                e.set_footer(text=f"Page {current_page + 1}/{len(pages)}")
-                return e
-            message = await ctx.send(embed=generate_page(), ephemeral=True)
-            async def pagination_callback(interaction, direction):
-                nonlocal current_page
-                if direction == "prev":
+                embed = discord.Embed(color=0x0E0E0E)
+                embed.set_author(name=f"Servers with '{search_term}' in their name")
+                embed.description = "\n".join([f"• [{server}]({discords[server]})" for server in pages[current_page]])
+                embed.set_footer(text=f"Page {current_page + 1}/{len(pages)}")
+                return embed
+            await ctx.interaction.response.send_message(embed=generate_page(), ephemeral=True)
+            try:
+                message = await ctx.interaction.original_response()
+            except Exception as e:
+                print(f"Error retrieving original response: {e}")
+                message = None
+            class SearchButtons(discord.ui.View):
+                def __init__(self):
+                    super().__init__(timeout=60)
+                @discord.ui.button(style=discord.ButtonStyle.primary, label="◀️")
+                async def prev_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+                    nonlocal current_page
+                    if interaction.user is None:
+                        await interaction.response.send_message("Error: Interaction user is None.", ephemeral=True)
+                        return
+                    if interaction.user != ctx.author:
+                        return await interaction.response.send_message("You can't control this menu.", ephemeral=True)
                     current_page = (current_page - 1) % len(pages)
-                else:
-                    current_page = (current_page + 1) % len(pages)         
-                await interaction.response.edit_message(embed=generate_page())
-            prev_button = discord.ui.Button(style=discord.ButtonStyle.primary, label="◀️")
-            next_button = discord.ui.Button(style=discord.ButtonStyle.primary, label="▶️")
-            prev_button.callback = lambda i: pagination_callback(i, "prev")
-            next_button.callback = lambda i: pagination_callback(i, "next")
-            view = discord.ui.View()
-            view.add_item(prev_button)
-            view.add_item(next_button)
+                    try:
+                        await interaction.response.edit_message(embed=generate_page(), view=self)
+                    except Exception as e:
+                        print(f"Error editing message: {e}")
+                @discord.ui.button(style=discord.ButtonStyle.primary, label="▶️")
+                async def next_button(self, interaction: discord.Interaction, button: discord.ui.Button):
+                    nonlocal current_page
+                    if interaction.user is None:
+                        await interaction.response.send_message("Error: Interaction user is None.", ephemeral=True)
+                        return
+                    if interaction.user != ctx.author:
+                        return await interaction.response.send_message("You can't control this menu.", ephemeral=True)
+                    current_page = (current_page + 1) % len(pages)
+                    try:
+                        await interaction.response.edit_message(embed=generate_page(), view=self)
+                    except Exception as e:
+                        print(f"Error editing message: {e}")
+            view = SearchButtons()
             await message.edit(embed=generate_page(), view=view)
-            while True:
-                try:
-                    interaction = await self.bot.wait_for("button_click", timeout=60)
-                    if interaction.user == ctx.author and interaction.message.id == message.id:
-                        await interaction.callback(interaction)
-                except asyncio.TimeoutError:
-                    await message.edit(view=None)
-                    break
-                except Exception as e:
-                    print(e)
-        except asyncio.TimeoutError:
-            await message.edit(view=None)
         except Exception as e:
-            print(e)
+            print(f"Error in search command: {e}")
     
     @commands.hybrid_command(name="random", description="Sends a random discord link")
     async def random(self, ctx):
