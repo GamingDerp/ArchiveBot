@@ -8,10 +8,10 @@
 ***ArchiveBot*** is a multi-server discord bot that's meant to connect the "Stoneworks" community, link by link. This is a public repository for those who are interested, and to ensure it's safety for users.
 
 # 📋 Features
-**5** commands across **2** different categories.
-
-- 🔍 **Server:** `Search`, `Random`
-- 📌 **General:** `Help`, `Info`, `Test`
+> ⚖️ `/Help` - *Sends the* ***ArchiveBot*** *Help Menu*
+> 📌 `/Info` - *Sends information about* ***ArchiveBot***
+> 🔍 `/Search` - *Search for a specific server*
+> 🎲 `/Random` - *Sends a random server*"
 - **Command List:** [Here](https://github.com/GamingDerp/ArchiveBot/blob/main/COMMANDS.md)
 
 # 📑 Credit
