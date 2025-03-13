@@ -11,7 +11,7 @@
 - ⚖️ `/Help` - *Sends the* ***ArchiveBot*** *Help Menu*
 - 📌 `/Info` - *Sends information about* ***ArchiveBot***
 - 🔍 `/Search` - *Search for a specific server*
-- 🎲 `/Random` - *Sends a random server*"
+- 🎲 `/Random` - *Sends a random server*
 > **Command List:** [Here](https://github.com/GamingDerp/ArchiveBot/blob/main/COMMANDS.md)
 
 # 📑 Credit
