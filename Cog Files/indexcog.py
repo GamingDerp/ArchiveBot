@@ -91,7 +91,7 @@ class IndexCog(commands.Cog):
             current_page = 0
             def generate_page():
                 embed = discord.Embed(color=0x0E0E0E)
-                embed.set_author(name=f"Servers with '{search_term}' in their name")
+                embed.set_author(name=f"🔍 Servers with '{search_term}' in their name 🔍")
                 embed.description = "\n".join([f"• [{server}]({discords[server]})" for server in pages[current_page]])
                 embed.set_footer(text=f"Page {current_page + 1}/{len(pages)}")
                 return embed
@@ -141,7 +141,7 @@ class IndexCog(commands.Cog):
             return
         try:
             e = discord.Embed(color=0x0E0E0E)
-            e.set_author(name="Random Server")
+            e.set_author(name="🎲 Random Server 🎲")
             selection = []
             for channels in self.index.values():
                 for channel, index in channels.items():
