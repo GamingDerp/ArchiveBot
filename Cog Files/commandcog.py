@@ -19,62 +19,18 @@ bot.launch_time = datetime.utcnow()
 bot_id = 1143360299534143640
 sda_logo = "https://media.discordapp.net/attachments/807071768258805764/1143728544971763742/sdalogo.jpg"
 sda_color = 0x0E0E0E
-
-se = discord.Embed(color=sda_color)
-se.set_author(name="Bot Commands", icon_url=sda_logo)
-se.set_thumbnail(url=sda_logo)
-se.add_field(
-    name="🔍 __Server Commands__",
-    value=f"> `Search`, `Random`",
-)
-
-ge = discord.Embed(color=sda_color)
-ge.set_author(name="Bot Commands", icon_url=sda_logo)
-ge.set_thumbnail(url=sda_logo)
-ge.add_field(
-    name="📌 __General Commands__",
-    value=f"> `Help`, `Info`, `Test`",
-)
-
-class Dropdown(discord.ui.Select):
-    def __init__(self):
-        options = [
-            discord.SelectOption(label="Server Commands", description="Search, Random", emoji="🔍"),
-            discord.SelectOption(label="General Commands",description="Help, Info, Test", emoji="📌"),
-        ]
-        super().__init__(min_values=1, max_values=1, options=options)
-
-    async def callback(self, interaction:discord.Interaction):
-        if self.values[0] == "Server Commands":
-            await interaction.response.edit_message(embed=se)
-        if self.values[0] == "General Commands":
-            await interaction.response.edit_message(embed=ge)
-    
-class DropdownView(discord.ui.View):
-    def __init__(self):
-        super().__init__()
-        self.add_item(Dropdown())      
         
 class CommandCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @bot.tree.command(description="Sends a message if the bot is online")
-    async def test(self, interaction: discord.Interaction):
-            await interaction.response.send_message("I'm up and indexing! <a:DerpPet:1146087107606098022>", ephemeral=True)
-    
     @bot.tree.command(description="Sends ArchiveBot's help menu")
     async def help(self, interaction: discord.Interaction):
         e = discord.Embed(color=sda_color)
-        e.set_author(name="Bot Commands", icon_url=sda_logo)
+        e.set_author(name="ArchiveBot Help Menu", icon_url=sda_logo)
         e.set_thumbnail(url=sda_logo)
-        e.add_field(
-            name="✧ __Command Menus__",
-            value=f"> 🔍 Server"
-                  f"\n> 📌 General"
-        )
-        view = DropdownView()
-        await interaction.response.send_message(embed=e, view=view, ephemeral=True)
+        e.description = f"> ⚖️ `/Help` - *Sends the* ***ArchiveBot*** *Help Menu* \n> 📌 `/Info` - *Sends information about* ***ArchiveBot*** \n> 🔍 `/Search` - *Search for a specific server* \n> 🎲 `/Random` - *Sends a random server*"
+        await interaction.response.send_message(embed=e, ephemeral=True)
     
     @bot.tree.command(description="Sends information about ArchiveBot")
     async def info(self, interaction: discord.Interaction):
@@ -107,7 +63,7 @@ class CommandCog(commands.Cog):
             )
             e.add_field(
                 name="✧ __Statistics__",
-                value=f"> **Commands:** [5]"
+                value=f"> **Commands:** [4]"
 	              f"\n> **Code:** {total_lines} Lines"
                       f"\n> **Ping:** {round(self.bot.latency * 1000)}ms"
                       f"\n> **Users:** {total_users}"
