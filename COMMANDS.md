@@ -3,7 +3,6 @@ This is a list of all commands, a description, and their usage.
 
 All commands are slash commands.
 
-## 🧮 Commands 🧮
 Command | Description | Usage
 --- | --- | ---
 help | Public help menu displaying commands | `help`
