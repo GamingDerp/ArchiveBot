@@ -52,7 +52,7 @@ class CommandCog(commands.Cog):
             hours, remainder = divmod(int(delta_uptime.total_seconds()), 3600)
             minutes, seconds = divmod(remainder, 60)
             days, hours = divmod(hours, 24)
-	    total_users = sum(guild.member_count for guild in self.bot.guilds)
+	        total_users = sum(guild.member_count for guild in self.bot.guilds)
             e = discord.Embed(color=sda_color)
             e.set_author(name="Bot Information", icon_url=sda_logo)
             e.set_thumbnail(url=sda_logo)
@@ -64,11 +64,11 @@ class CommandCog(commands.Cog):
             e.add_field(
                 name="✧ __Statistics__",
                 value=f"> **Commands:** [4]"
-	              f"\n> **Code:** {total_lines} Lines"
+	                  f"\n> **Code:** {total_lines} Lines"
                       f"\n> **Ping:** {round(self.bot.latency * 1000)}ms"
                       f"\n> **Users:** {total_users}"
                       f"\n> **Servers:** {len(self.bot.guilds)}"
-        	      f"\n> **Uptime:** {days}**d** {hours}**h** {minutes}**m** {seconds}**s**",
+        	          f"\n> **Uptime:** {days}**d** {hours}**h** {minutes}**m** {seconds}**s**",
                 inline=False
             )
             e.add_field(
